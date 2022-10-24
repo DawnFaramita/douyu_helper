@@ -6,7 +6,8 @@ on:
       - master
   workflow_dispatch: 
   schedule:
-    - cron: '00 1 * * *'
+    - cron: '02 16 * * *'
+    - cron: '02 19 * * *'
 
 jobs:
   dy_auto_donate_helper:
@@ -20,18 +21,10 @@ jobs:
           python-version: 3.7
       - name: 'Install requirements'
         run: pip install -r requirements.txt
-      - name: 'Set driver'
-        run: sudo chmod -R 777 ./chrome/chromedriver
       - name: 'Working'
         env:
-#          ACF_AUTH: ${{ secrets.ACF_AUTH }}
-#          ACF_UID: ${{ secrets.ACF_ACF_UID }}
-#          ACF_USERNAME: ${{ secrets.ACF_USERNAME }}
-#          ACF_NICKNAME: ${{ secrets.ACF_NICKNAME }}
-#          DY_AUTH: ${{ secrets.DY_AUTH }}
           SERVERPUSHKEY: ${{ secrets.SERVERPUSHKEY }}
           COOKIES: ${{ secrets.COOKIES }}
+          BARKURL: ${{ secrets.BARKURL }}
         run: |
-          sudo cp -p ./chrome/chromedriver /usr/bin/
-          chmod -R 777 /usr/bin/chromedriver
           python main.py
